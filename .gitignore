@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> Fairly mature initial commit
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -102,3 +106,8 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# Our stuff
+.DS_Store
+.ipynb_checkpoints/
+output/

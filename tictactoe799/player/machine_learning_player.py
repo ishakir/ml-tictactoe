@@ -47,7 +47,7 @@ class MachineLearningPlayer:
 				binary_state.extend(translate(a))
 		return binary_state
 
-	def add_training_data(board, x, y):
+	def add_training_data(self, board, x, y):
 		def p_2_index(position):
 			return (position[0] * 3) + position[1]
 

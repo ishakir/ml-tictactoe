@@ -59,13 +59,13 @@ class Board:
 		return Board(self.transform_board(self.compute_rotation_matrix(number_of_rotations)))
 
 	def reflect_position_x(self, position):
-		return self.transform_position(X_REFLECTION_MATRIX)
+		return self.transform_position(X_REFLECTION_MATRIX, position)
 
 	def reflect_position_y(self, position):
-		return self.transform_position(Y_REFLECTION_MATRIX)
+		return self.transform_position(Y_REFLECTION_MATRIX, position)
 
 	def rotate_position(self, position, number_of_rotations):
-		return self.transform_position(self.compute_rotation_matrix(number_of_rotations))
+		return self.transform_position(self.compute_rotation_matrix(number_of_rotations), position)
 
 	def transform_board(self, matrix):
 		transforms = []

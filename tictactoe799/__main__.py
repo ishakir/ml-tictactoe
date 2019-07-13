@@ -10,7 +10,8 @@ from os import makedirs, path
 
 @click.command()
 @click.option('--resume-from-round', default=0)
-def run(resume_from_round):
+@click.option('--data-root', default='.')
+def run(resume_from_round, data_root):
 	if resume_from_round == 0:
 		players = [MachineLearningPlayer(x) for x in range(NUMBER_OF_BOTS)]
 	else:
@@ -22,7 +23,7 @@ def run(resume_from_round):
 	for i in range(resume_from_round, 10000):
 		print('ROUND {}'.format(str(i)))
 
-		round_dir = path.join('.', 'output', str(i))
+		round_dir = path.join(data_root, 'output', str(i))
 		players_dir = path.join(round_dir, 'starting_players')
 		round_robin_results_dir = path.join(round_dir, 'round_robin')
 		minimax_result_dir = path.join(round_dir, 'minimax')

@@ -4,19 +4,25 @@ NUMBER_OF_BOTS = 25
 
 GOOD_MOVE_CONFIDENCE_APPEARANCE_THRESHOLD = 10
 
-class HashableArray(object):
-	def __init__(self, val):
-		self.val = val
+class HashableMoveChoice:
+	def __init__(self, board, typ, move):
+		self.board = board
+		self.typ = typ
+		self.move = move
 
 	def __hash__(self):
-		return hash(str(self.val))
+		h1 = hash(self.board.to_single_line_string())
+		h2 = hash(self.typ)
+		h3 = hash(str(self.move))
 
-	def __repr__(self):
-		# Bonus: define this method to get clean output
-		return str(self.val)
+		return hash("".join([str(h) for h in sorted([h1, h2, h3])]))
 
 	def __eq__(self, other):
-		return str(self.val) == str(other.val)
+		return self.board.to_single_line_string() == other.board.to_single_line_string() and \
+				self.typ == other.typ and self.move == other.move
+
+	def __str__(self):
+		return "{},{},{}".format(self.board.to_single_line_string(), self.typ, str(self.move))
 
 
 def round_robin_mix(players):

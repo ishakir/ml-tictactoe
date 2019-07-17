@@ -25,12 +25,14 @@ def run(resume_from_round, data_root):
 
 		round_dir = path.join(data_root, 'output', str(i))
 		players_dir = path.join(round_dir, 'starting_players')
+		training_dir = path.join(round_dir, 'training_log')
 		round_robin_results_dir = path.join(round_dir, 'round_robin')
 		minimax_result_dir = path.join(round_dir, 'minimax')
 		
 		makedirs(players_dir, exist_ok=True)
 		makedirs(round_robin_results_dir, exist_ok=True)
 		makedirs(minimax_result_dir, exist_ok=True)
+		makedirs(training_dir, exist_ok=True)
 
 		print('- Saving players')
 		for player in players:
@@ -54,7 +56,7 @@ def run(resume_from_round, data_root):
 
 		print('- Training'.format(i))
 		for x in players:
-			x.new_batch()
+			x.new_batch(training_dir)
 
 
 if __name__ == '__main__':

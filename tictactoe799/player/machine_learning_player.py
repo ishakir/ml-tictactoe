@@ -1,4 +1,4 @@
-from tictactoe799 import HashableArray, GOOD_MOVE_CONFIDENCE_APPEARANCE_THRESHOLD
+from tictactoe799 import HashableMoveChoice, GOOD_MOVE_CONFIDENCE_APPEARANCE_THRESHOLD
 from tictactoe799.player.random_player import RandomPlayer
 
 from collections import defaultdict
@@ -47,22 +47,22 @@ class MachineLearningPlayer:
 				binary_state.extend(translate(a))
 		return binary_state
 
-	def add_training_data(self, board, x, y):
-		def p_2_index(position):
-			return (position[0] * 3) + position[1]
+	def p_2_index(self, position):
+		return (position[0] * 3) + position[1]
 
+	def add_training_data(self, board, typ, x, y):
 		if self.training_mode:
-			self.staged_training_data.append((self.board_to_binary_state(board, type), p_2_index([x, y])))
-			self.staged_training_data.append((self.board_to_binary_state(board.reflect_board_x(), type), p_2_index(board.reflect_position_x([x, y]))))
-			self.staged_training_data.append((self.board_to_binary_state(board.reflect_board_y(), type), p_2_index(board.reflect_position_y([x, y]))))
-			self.staged_training_data.append((self.board_to_binary_state(board.rotate_board(1), type), p_2_index(board.rotate_position([x, y], 1))))
-			self.staged_training_data.append((self.board_to_binary_state(board.rotate_board(2), type), p_2_index(board.rotate_position([x, y], 2))))
-			self.staged_training_data.append((self.board_to_binary_state(board.rotate_board(3), type), p_2_index(board.rotate_position([x, y], 3))))
+			self.staged_training_data.append(HashableMoveChoice(board, typ, [x, y]))
+			self.staged_training_data.append(HashableMoveChoice(board.reflect_board_x(), typ, board.reflect_position_x([x, y])))
+			self.staged_training_data.append(HashableMoveChoice(board.reflect_board_y(), typ, board.reflect_position_y([x, y])))
+			self.staged_training_data.append(HashableMoveChoice(board.rotate_board(1), typ, board.rotate_position([x, y], 1)))
+			self.staged_training_data.append(HashableMoveChoice(board.rotate_board(2), typ, board.rotate_position([x, y], 2)))
+			self.staged_training_data.append(HashableMoveChoice(board.rotate_board(3), typ, board.rotate_position([x, y], 3)))
 
 	def play(self, board, type):
 		if self.training_mode and randint(0, 9) == 0:
 			first, second = self.random.play(board, type)
-			self.add_training_data(board, first, second)	
+			self.add_training_data(board, type, first, second)	
 			return first, second
 		else:
 			prediction = self.model.predict(np.array([self.board_to_binary_state(board, type)]))
@@ -71,29 +71,34 @@ class MachineLearningPlayer:
 				remainder = index % 3
 				quotient = int((index - remainder) / 3)
 				if not board.taken(quotient, remainder):
-					self.add_training_data(board, quotient, remainder)
+					self.add_training_data(board, type, quotient, remainder)
 					return quotient, remainder
 		raise RuntimeError("Failed to find any")
 
 	def new_game(self, result):
-		for board_state, play in self.staged_training_data:
-			self.training_data[HashableArray([board_state, play])].append(result)
+		for move_choice in self.staged_training_data:
+			self.training_data[move_choice].append(result)
 		self.staged_training_data = []
 
 	def __result_value(self, result):
 		return 5 if result == 'win' else 1 if result == 'draw' else -3
 
-	def new_batch(self):
+	def new_batch(self, dir):
 		above_threshold = {k: v for k, v in self.training_data.items() if len(v) > GOOD_MOVE_CONFIDENCE_APPEARANCE_THRESHOLD}
 		to_train = [k for k, v in above_threshold.items() if sum([self.__result_value(r) for r in v]) / len(v) > 0]
+
+		with open(path.join(dir, "{}_training.csv".format(str(self.number))), 'w') as f:
+			f.write("board,to_play,move_x,move_y\n")
+			for x in to_train:
+				f.write("{}\n".format(str(x)))
 
 		for k, _ in above_threshold.items():
 			del self.training_data[k]
 
 		if to_train:
 			self.model.fit(
-				np.array([x.val[0] for x in to_train]),
-				np.array([y.val[1] for y in to_train]),
+				np.array([self.board_to_binary_state(x.board, x.typ) for x in to_train]),
+				np.array([self.p_2_index(y.move) for y in to_train]),
 				epochs=5,
 				verbose=0
 			)

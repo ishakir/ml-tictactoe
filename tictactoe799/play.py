@@ -7,13 +7,14 @@ from tictactoe799.player.minimax_player import MinimaxPlayer
 import click
 
 @click.command()
+@click.option('--data-root', default='.')
 @click.option('--exhaustive', is_flag=True)
 @click.option('--minimax', is_flag=True)
 @click.option('--ml', is_flag=True)
 @click.option('--round')
 @click.option('--bot-number')
 @click.option('--play-second', is_flag=True)
-def play(exhaustive, minimax, ml, round, bot_number, play_second):
+def play(data_root, exhaustive, minimax, ml, round, bot_number, play_second):
 	player = HumanPlayer()
 	
 	if exhaustive:
@@ -21,7 +22,7 @@ def play(exhaustive, minimax, ml, round, bot_number, play_second):
 	elif minimax:
 		opponent = MinimaxPlayer(play_second)  # If I am playing second, the bot is playing first
 	else:
-		opponent = load_model(round, bot_number)
+		opponent = load_model(data_root, round, bot_number)
 		opponent.training_mode = False
 
 	if not play_second:

@@ -10,8 +10,8 @@ import numpy as np
 from os import path
 
 
-def load_model(round, number):
-	saved_model = path.join('.', 'output', str(round), 'starting_players', '{}.h5'.format(str(number)))
+def load_model(data_root, round, number):
+	saved_model = path.join(data_root, 'output', str(round), 'starting_players', '{}.h5'.format(str(number)))
 	return MachineLearningPlayer(number, keras.models.load_model(saved_model))
 
 

@@ -24,7 +24,7 @@ def run(resume_from_round, data_root):
 	if resume_from_round == 0:
 		players = [MachineLearningPlayer(x) for x in range(NUMBER_OF_BOTS)]
 	else:
-		players = [load_model(resume_from_round, x) for x in range(NUMBER_OF_BOTS)]
+		players = [load_model(data_root, resume_from_round, x) for x in range(NUMBER_OF_BOTS)]
 
 	minimax_play_first = MinimaxPlayer(True)
 	minimax_play_second = MinimaxPlayer(False)

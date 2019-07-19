@@ -59,7 +59,7 @@ class MachineLearningPlayer:
 		self.staged_training_data = []
 
 	def new_batch(self, dir):
-		above_threshold = {k: v for k, v in self.training_data.items() if len(v) > self.good_move_confidence_appearance_threshold}
+		above_threshold = {k: v for k, v in self.training_data.items() if len(v) >= self.good_move_confidence_appearance_threshold}
 		to_train = [k for k, v in above_threshold.items() if self.should_train(v)]
 
 		with open(path.join(dir, "{}_training.csv".format(str(self.number))), 'w') as f:

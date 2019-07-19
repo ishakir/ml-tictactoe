@@ -1,4 +1,5 @@
 from mlgames.config.initial_connect4_config import InitialConnect4Config
 from mlgames.config.initial_tictactoe_config import InitialTicTacToeConfig
+from mlgames.config.tictactoe_learnanywinner_config import TicTacToeLearnAnyWinnerConfig
 
-CURRENT_CONFIG = InitialTicTacToeConfig()
+CURRENT_CONFIG = TicTacToeLearnAnyWinnerConfig()

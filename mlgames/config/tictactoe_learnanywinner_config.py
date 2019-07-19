@@ -9,9 +9,9 @@ from mlgames.tictactoe.human_player import HumanPlayer
 from mlgames.tictactoe.random_player import RandomPlayer
 from mlgames.tictactoe.minimax_player import MinimaxPlayer
 
-class InitialTicTacToeConfig(ConfigABC):
+class TicTacToeLearnAnyWinnerConfig(ConfigABC):
 	def name(self):
-		return "tictactoe_learnanywinner"
+		return "initial_tictactoe"
 
 	def number_of_bots(self):
 		return 25
@@ -30,9 +30,9 @@ class InitialTicTacToeConfig(ConfigABC):
 
 	def new_model(self):
 		model = keras.Sequential([
-		    keras.layers.Dense(64, activation=tf.nn.relu, input_shape=(27, )),
-		    keras.layers.Dense(16, activation=tf.nn.relu),
-		    keras.layers.Dense(9, activation=tf.nn.softmax)
+		    keras.layers.Dense(64, activation=tf.nn.relu, kernel_regularizer=keras.regularizers.l2(0.01), bias_regularizer=keras.regularizers.l2(0.01), input_shape=(27, )),
+		    keras.layers.Dense(16, activation=tf.nn.relu, kernel_regularizer=keras.regularizers.l2(0.01), bias_regularizer=keras.regularizers.l2(0.01)),
+		    keras.layers.Dense(9, activation=tf.nn.softmax, kernel_regularizer=keras.regularizers.l2(0.01), bias_regularizer=keras.regularizers.l2(0.01))
 		])
 
 		model.compile(optimizer='adam',
@@ -68,11 +68,9 @@ class InitialTicTacToeConfig(ConfigABC):
 		return 5
 
 	def good_move_confidence_appearance_threshold(self):
-		return 10
+		return 1
 
 	def should_train(self):
 		def f(results):
-			def result_value(result):
-				return 5 if result == 'win' else 1 if result == 'draw' else -3
-			return sum([result_value(r) for r in results]) / len(results) > 0
+			return 'win' in results
 		return f

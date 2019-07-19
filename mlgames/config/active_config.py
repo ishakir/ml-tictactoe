@@ -1,0 +1,4 @@
+from mlgames.config.initial_connect4_config import InitialConnect4Config
+from mlgames.config.initial_tictactoe_config import InitialTicTacToeConfig
+
+CURRENT_CONFIG = InitialTicTacToeConfig()

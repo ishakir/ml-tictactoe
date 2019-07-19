@@ -9,9 +9,9 @@ from mlgames.tictactoe.human_player import HumanPlayer
 from mlgames.tictactoe.random_player import RandomPlayer
 from mlgames.tictactoe.minimax_player import MinimaxPlayer
 
-class TicTacToeLearnAnyWinnerConfig(ConfigABC):
+class TicTacToeLearnAnyNonLosingConfig(ConfigABC):
 	def name(self):
-		return "initial_tictactoe"
+		return "tictactoe_learnanynonlosing"
 
 	def number_of_bots(self):
 		return 25
@@ -72,5 +72,5 @@ class TicTacToeLearnAnyWinnerConfig(ConfigABC):
 
 	def should_train(self):
 		def f(results):
-			return 'win' in results
+			return 'win' in results or 'draw' in results
 		return f

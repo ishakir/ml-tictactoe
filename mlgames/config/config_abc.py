@@ -1,4 +1,6 @@
 from abc import ABC, abstractmethod
+from os import path
+
 from mlgames.machine_learning_player import MachineLearningPlayer
 
 class ConfigABC(ABC):

@@ -28,7 +28,7 @@ def play(data_root, benchmark, random, ml, round, bot_number, play_second):
 	else:
 		players = [opponent, player]
 
-	match = Match(players, config.empty_board_gen)
+	match = Match(players, config.empty_board_gen())
 	while not match.is_finished():
 		print('Current state: ')
 		print(str(match.current_board))

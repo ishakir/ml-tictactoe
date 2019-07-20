@@ -1,9 +1,6 @@
 from mlgames.config.active_config import CURRENT_CONFIG as config
 
-from mlgames.connect4_match import Match
-from mlgames.connect4_player.human_player import HumanPlayer
-from mlgames.connect4_player.random_player import RandomPlayer
-from mlgames.connect4_player.machine_learning_player import load_model
+from mlgames.match import Match
 
 import click
 

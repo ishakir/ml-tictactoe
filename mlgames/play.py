@@ -3,6 +3,7 @@ from mlgames.config.active_config import CURRENT_CONFIG as config
 from mlgames.match import Match
 
 import click
+from os import path
 
 @click.command()
 @click.option('--data-root', default='.')
@@ -20,7 +21,7 @@ def play(data_root, benchmark, random, ml, round, bot_number, play_second):
 	elif benchmark:
 		opponent = config.new_benchmark_player(play_second) # If I am playing second, the bot is playing first
 	elif ml:
-		opponent = config.load_machine_learning_player(data_root, round, bot_number)
+		opponent = config.load_machine_learning_player(path.join(data_root, config.name()), round, bot_number)
 		opponent.training_mode = False
 
 	if not play_second:

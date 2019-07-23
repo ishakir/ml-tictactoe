@@ -6,7 +6,7 @@ from mlgames.machine_learning_player import MachineLearningPlayer
 
 from mlgames.connect4.board import empty
 from mlgames.connect4.human_player import HumanPlayer
-from mlgames.connect4.random_player import RandomPlayer
+from mlgames.connect4.minimax_player import MinimaxPlayer
 
 class InitialConnect4Config(ConfigABC):
 	def name(self):
@@ -22,7 +22,7 @@ class InitialConnect4Config(ConfigABC):
 		return RandomPlayer()
 
 	def new_benchmark_player(self, play_first):
-		return RandomPlayer()
+		return MinimaxPlayer(3)
 
 	def empty_board_gen(self):
 		return empty

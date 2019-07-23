@@ -4,7 +4,7 @@ class HumanPlayer(Player):
 	def name(self):
 		return "Human Player"
 
-	def play(self, board, type):
+	def play(self, board, piece):
 		result = input("What would you like to do?\n")
 		col = result.strip()
 		return int(col)

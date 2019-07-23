@@ -6,7 +6,7 @@ from shutil import rmtree
 
 import re
 
-IGNORE_PATHS = set(['.DS_Store'])
+IGNORE_PATHS = set(['.DS_Store', 'lost+found'])
 
 BOT_NAME_REGEX = re.compile('^ML Bot (\d+)$')
 

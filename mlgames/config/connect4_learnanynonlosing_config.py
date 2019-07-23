@@ -23,7 +23,7 @@ class Connect4LearnAnyNonLosingConfig(ConfigABC):
 		return RandomPlayer()
 
 	def new_benchmark_player(self, play_first):
-		return MinimaxPlayer(3)
+		return MinimaxPlayer(2)
 
 	def empty_board_gen(self):
 		return empty

@@ -6,6 +6,7 @@ from mlgames.machine_learning_player import MachineLearningPlayer
 
 from mlgames.connect4.board import empty
 from mlgames.connect4.human_player import HumanPlayer
+from mlgames.connect4.random_player import RandomPlayer
 from mlgames.connect4.minimax_player import MinimaxPlayer
 
 class Connect4LearnAnyNonLosingConfig(ConfigABC):

@@ -107,8 +107,6 @@ class MinimaxPlayer(Player):
 		while not len(stack) == 0:
 			node = stack.pop(0)
 			total_nodes += 1
-			if total_nodes % 1000 == 0:
-				print("Explored {} nodes, stack depth {}".format(str(total_nodes), str(len(stack))))
 			winner = node.board.winner()
 			if node.depth == self.termination_depth:
 				node.total_children = 1
@@ -124,15 +122,11 @@ class MinimaxPlayer(Player):
 				legal_moves = [x for x in moves if node.board.play_is_legal(piece_to_play, x)]
 				for x in legal_moves:
 					node.total_children = len(legal_moves)
-					# print(node.board.play(piece_to_play, x))
 					stack.append(Node(node.board.play(piece_to_play, x), node, node.depth + 1, not node.us_to_play, None))
 					total_nodes += 1
 
 		best = None
 		best_score = -1
-
-		for x, v in positions_to_score.items():
-			print(x, v.result)
 
 		for play, node in positions_to_score.items():
 			if best is None or node.result > best_score:

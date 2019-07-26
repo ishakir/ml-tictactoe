@@ -1,4 +1,5 @@
 from mlgames import HashableMoveChoice
+from mlgames.player import Player
 
 from collections import defaultdict
 from random import randint
@@ -9,7 +10,7 @@ import numpy as np
 from os import path
 
 
-class MachineLearningPlayer:
+class MachineLearningPlayer(Player):
 	def __init__(self, number, model, random_player, move_to_prediction, prediction_to_move, board_to_input, epochs, good_move_confidence_appearance_threshold, should_train):
 		self._name = "ML Bot {}".format(number)
 		self.number = number

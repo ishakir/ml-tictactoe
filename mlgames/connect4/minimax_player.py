@@ -30,7 +30,7 @@ class MinimaxPlayer(Player):
 		self.termination_depth = termination_depth
 
 	def name(self):
-		return "Human Player"
+		return "Minimax Player"
 
 	def play(self, board, piece):
 		def examine_sublist(sublist):

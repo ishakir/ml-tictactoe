@@ -1,5 +1,0 @@
-X,O,result,game_length
-Minimax Player,ML Bot 0,X,8
-Minimax Player,ML Bot 1,X,24
-ML Bot 0,Minimax Player,O,15
-ML Bot 1,Minimax Player,O,13

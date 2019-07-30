@@ -42,9 +42,22 @@ class TicTacToeBoard(Board):
 
 		return None
 
+	def parse_move(self, move_str):
+		a, b = move_str.split(",")
+		return int(a), int(b)
+
 	def play_is_legal(self, piece, move):
 		x, y = move
 		return self.board_state[x][y] == '.'
+
+	def all_legal_moves(self, piece):
+		to_return = []
+		for x in range(3):
+			for y in range(3):
+				move = (x, y)
+				if self.play_is_legal(piece, move):
+					to_return.append(move)
+		return to_return
 
 	def complete(self):
 		for x in self.board_state:

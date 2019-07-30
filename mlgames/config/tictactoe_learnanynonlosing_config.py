@@ -2,11 +2,8 @@ import tensorflow as tf
 from tensorflow import keras
 
 from mlgames.config.config_abc import ConfigABC
-from mlgames.machine_learning_player import MachineLearningPlayer
 
 from mlgames.tictactoe.board import empty
-from mlgames.tictactoe.human_player import HumanPlayer
-from mlgames.tictactoe.random_player import RandomPlayer
 from mlgames.tictactoe.minimax_player import MinimaxPlayer
 
 class TicTacToeLearnAnyNonLosingConfig(ConfigABC):
@@ -15,12 +12,6 @@ class TicTacToeLearnAnyNonLosingConfig(ConfigABC):
 
 	def number_of_bots(self):
 		return 25
-
-	def new_human_player(self):
-		return HumanPlayer()
-
-	def new_random_player(self):
-		return RandomPlayer()
 
 	def new_benchmark_player(self, play_first):
 		return MinimaxPlayer(play_first)
@@ -74,3 +65,10 @@ class TicTacToeLearnAnyNonLosingConfig(ConfigABC):
 		def f(results):
 			return 'win' in results or 'draw' in results
 		return f
+
+	def benchmark_minimax_depth(self):
+		raise NotImplemented('new_benchmark_player should be overriden!')
+
+	def board_evaluation(self):
+		raise NotImplemented('new_benchmark_player should be overriden!')
+

@@ -63,8 +63,14 @@ class Connect4Board(Board):
 
 		return None
 
+	def parse_move(self, move_str):
+		return int(result)
+
 	def play_is_legal(self, piece, move):
 		return self.board_state[0][move] == b'.'
+
+	def all_legal_moves(self, piece):
+		return list([x for x in range(7) if self.play_is_legal(piece, x)])
 
 	def complete(self):
 		for x in self.board_state:

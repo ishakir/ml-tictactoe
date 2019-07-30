@@ -14,12 +14,22 @@ class Board(ABC):
 	def winner(self):
 		pass
 
+	# Should return a parsed representation from a string passed via the command line
+	@abstractmethod
+	def parse_move(self, move_str):
+		pass
+
 	# piece should be a player signifier (e.g. X or O)
 	# move should be whatever type you chose move to be (e.g. (x, y))
 	# 
 	# Should return a boolean indicating whether the suggested move is legal
 	@abstractmethod
 	def play_is_legal(self, piece, move):
+		pass
+
+	# Should return a list of all the currently legal moves that this piece can play
+	@abstractmethod
+	def all_legal_moves(self, piece):
 		pass
 
 	# Should return whether the board is 'complete' (i.e. no more moves are possible)

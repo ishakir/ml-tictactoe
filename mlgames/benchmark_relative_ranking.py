@@ -1,5 +1,5 @@
 from mlgames import all_v_one_mix
-from mlgames.composite_player import CompositePlayer
+from mlgames.player.composite_player import CompositePlayer
 from mlgames.match import Match
 from mlgames.round import Round
 from mlgames.config.active_config import CURRENT_CONFIG as config

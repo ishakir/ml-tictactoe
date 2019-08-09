@@ -30,7 +30,7 @@ class MinimaxPlayer(Player):
 		return "Minimax Player"
 
 	def play(self, board, piece):
-		positions_to_score = {}
+		positions_to_score = []
 		stack = []
 		total_nodes = 0
 
@@ -38,7 +38,7 @@ class MinimaxPlayer(Player):
 		shuffle(moves)
 		for x in moves:
 			new_node = Node(board.play(piece, x), None, 1, False, None)
-			positions_to_score[x] = new_node
+			positions_to_score.append((x, new_node))
 			stack.append(new_node)
 			total_nodes += 1
 
@@ -64,7 +64,7 @@ class MinimaxPlayer(Player):
 		best = None
 		best_score = -1
 
-		for play, node in positions_to_score.items():
+		for play, node in positions_to_score:
 			if best is None or node.result > best_score:
 				best = play
 				best_score = node.result

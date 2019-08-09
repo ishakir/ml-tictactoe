@@ -3,4 +3,4 @@ from mlgames.config.initial_tictactoe_config import InitialTicTacToeConfig
 from mlgames.config.tictactoe_learnanynonlosing_config import TicTacToeLearnAnyNonLosingConfig
 from mlgames.config.connect4_learnanynonlosing_config import Connect4LearnAnyNonLosingConfig
 
-CURRENT_CONFIG = Connect4LearnAnyNonLosingConfig()
+CURRENT_CONFIG = TicTacToeLearnAnyNonLosingConfig()

@@ -15,7 +15,9 @@ def get_number(st):
 	return m.group(1)
 
 def preserve_entirely(maximum, number):
-	if number == 1:
+	if number == maximum:
+		return True
+	elif number == 1:
 		return True
 	elif number < 100 and number % 10 == 0:
 		return True

@@ -15,13 +15,13 @@ def get_number(st):
 	return m.group(1)
 
 def preserve_entirely(maximum, number):
-	if (maximum - 500) <= number:
-		return True
 	elif number == 1:
 		return True
 	elif number < 100 and number % 10 == 0:
 		return True
-	elif number % 100 == 0:
+	elif number < 1000 and number % 100 == 0:
+		return True
+	elif number % 1000 == 0:
 		return True
 	else:
 		return False

@@ -4,4 +4,4 @@ from mlgames.config.tictactoe_learnanynonlosing_config import TicTacToeLearnAnyN
 from mlgames.config.connect4_learnanynonlosing_config import Connect4LearnAnyNonLosingConfig
 from mlgames.config.tictactoe_deepernetwork import TicTacToeDeeperNetwork
 
-CURRENT_CONFIG = TicTacToeLearnAnyNonLosingConfig()
+CURRENT_CONFIG = TicTacToeDeeperNetwork()
